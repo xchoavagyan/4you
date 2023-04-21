@@ -13,5 +13,5 @@ jobs:
       - name: Get folder name
         id: get_folder_name
         run: | 
-          echo "::set-output name=folder_name::${{ github.event.inputs.paths }}"
+          echo "::set-output name=folder_name::${{ on.push.paths }}"
           echo "${{ env.folder_name }}"
