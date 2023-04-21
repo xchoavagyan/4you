@@ -12,14 +12,7 @@ jobs:
     steps:
       - name: Get folder
         run: | 
-          echo "{folder}={worker}" >> $GITHUB_OUTPUT
-          echo $$GITHUB_OUTPUT
-      - name: Get folder name
-        id: get_folder_name
-        run: echo "::set-output name=folder_name::${{ github.event.inputs.paths }}"
+          echo "action_state=yellow" >> "$GITHUB_ENV"
+          echo $GITHUB_ENV
 
-      - name: Extract folder name
-        id: extract_folder_name
-        if: ${{ startsWith(steps.get_folder_name.outputs.folder_name, 'worker/') }}
-        run: echo "::set-output name=folder_name::worker"
         
