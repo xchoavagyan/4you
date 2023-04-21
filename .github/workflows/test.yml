@@ -10,18 +10,8 @@ jobs:
   my-job:
     runs-on: ubuntu-latest
     steps:
-      # - name: Determine which folder was changed
-      #   id: determine_folder
-      #   run: |
-      #     if [ -n "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- worker/)" ]; then
-      #       echo "::set-output name=folder_name::worker"
-      #     elif [ -n "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- data-processors/)" ]; then
-      #       echo "::set-output name=folder_name::data-processors"
-      #     elif [ -n "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- product/)" ]; then
-      #       echo "::set-output name=folder_name::product"
-          # fi
-        
-      - name: Set 
+      - name: Get folder name
+        id: get_folder_name
         run: | 
-          echo ${{ github.event.inputs.paths }} > file.txt
-          cat file.txt
+          echo "::set-output name=folder_name::${{ github.event.inputs.paths }}"
+          echo "${{ env.folder_name }}"
