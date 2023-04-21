@@ -14,11 +14,11 @@ jobs:
         id: determine_folder
         run: |
           if [ -n "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- worker/)" ]; then
-            echo "::set-output name=folder_name::folder1"
+            echo "::set-output name=folder_name::worker"
           elif [ -n "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- data-processors/)" ]; then
-            echo "::set-output name=folder_name::folder2"
+            echo "::set-output name=folder_name::data-processors"
           elif [ -n "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- product/)" ]; then
-            echo "::set-output name=folder_name::folder3"
+            echo "::set-output name=folder_name::product"
           fi
         
       - name: Use folder name
