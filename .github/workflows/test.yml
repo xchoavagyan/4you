@@ -12,9 +12,8 @@ jobs:
     steps:
       - name: Get folder
         run: | 
-          echo $github.event.inputs.paths
-          echo "{folder}={worker}" >> $GITHUB_STATE
-          echo $GITHUB_STATE
+          echo "{folder}={worker}" >> $GITHUB_OUTPUT
+          echo $$GITHUB_OUTPUT
       - name: Get folder name
         id: get_folder_name
         run: echo "::set-output name=folder_name::${{ github.event.inputs.paths }}"
