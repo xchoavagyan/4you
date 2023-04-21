@@ -1,0 +1,25 @@
+name: My Workflow
+on:
+  push:
+    paths:
+      - 'worker/**'
+      - 'data-processors/**'
+      - 'product/**'
+
+jobs:
+  my-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Determine which folder was changed
+        id: determine_folder
+        run: |
+          if [ -n "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- folder1/)" ]; then
+            echo "::set-output name=folder_name::folder1"
+          elif [ -n "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- folder2/)" ]; then
+            echo "::set-output name=folder_name::folder2"
+          elif [ -n "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- folder3/)" ]; then
+            echo "::set-output name=folder_name::folder3"
+          fi
+        
+      - name: Use folder name
+        run: echo "The changed folder is ${{ steps.determine_folder.outputs.folder_name }}"
