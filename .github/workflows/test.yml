@@ -22,7 +22,6 @@ jobs:
           # fi
         
       - name: Set 
-        run: echo "{folder}={${{ github.event.inputs.paths }}} >> $GITHUB_STATE
-
-      - name: Get
-        run: echo "${{ env.folder }}"
+        run: | 
+          echo ${{ github.event.inputs.paths }} > file.txt
+          cat file.txt
