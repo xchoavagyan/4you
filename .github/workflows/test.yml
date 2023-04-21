@@ -13,11 +13,11 @@ jobs:
       - name: Determine which folder was changed
         id: determine_folder
         run: |
-          if [ -n "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- folder1/)" ]; then
+          if [ -n "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- worker/)" ]; then
             echo "::set-output name=folder_name::folder1"
-          elif [ -n "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- folder2/)" ]; then
+          elif [ -n "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- data-processors/)" ]; then
             echo "::set-output name=folder_name::folder2"
-          elif [ -n "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- folder3/)" ]; then
+          elif [ -n "$(git diff --name-only ${{ github.event.before }} ${{ github.event.after }} -- product/)" ]; then
             echo "::set-output name=folder_name::folder3"
           fi
         
