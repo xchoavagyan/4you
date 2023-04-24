@@ -1,44 +1,104 @@
-# name: My Workflow
+# # # name: My Workflow
+# # # on:
+# # #   push:
+# # #     paths:
+# # #       - 'worker/**'
+# # #       - 'data-processors/**'
+# # #       - 'product/**'
+# # # # env:
+# # #   # TRIGGERED_FOLDER: ${{ github.event.action }}
+# # #   # TRIGGERED_FOLDER1: ${{ github.event.pusher }}
+# # #   # folder: ${{ github.event.modified }}
+# # # jobs:
+# # #   my-job:
+# # #     runs-on: ubuntu-latest
+# # #     steps:
+# # #       - name: Print github.event object
+# # #         run: echo "${{ toJson(github.event) }}"
+# # #       - name: Use triggered folder
+# # #         run: |
+# # #           echo "The triggered folder is $TRIGGERED_FOLDER"
+# # #           echo "The triggered folder is $TRIGGERED_FOLDER1"
+# # #           echo "$folder"
+
+# # name: My Workflow
+
+# # on:
+# #   push:
+# #     paths:
+# #       - 'worker/**'
+# #       - 'data-processors/**'
+
+# # jobs:
+# #   build:
+# #     runs-on: ubuntu-latest
+# #     steps:
+# #       - name: Checkout code
+# #         uses: actions/checkout@v2
+
+# #       - name: Check if data was changed
+# #         run: |
+# #           git show --pretty="" --name-only $GITHUB_EVENT_AFTER
+# #       - name: Check if worker was changed
+# #         run: |
+# #           git diff --name-only ${{ github.event.before }} ${{ github.event.after }}
+
+
+# name: Workflow example
+
+# env:
+#   FOLDER1: worker
+#   FOLDER2: asdasd
+#   FOLDER3: asdasdasd
 # on:
+
 #   push:
+#     branches:
+#     - main
 #     paths:
-#       - 'worker/**'
-#       - 'data-processors/**'
-#       - 'product/**'
-# # env:
-#   # TRIGGERED_FOLDER: ${{ github.event.action }}
-#   # TRIGGERED_FOLDER1: ${{ github.event.pusher }}
-#   # folder: ${{ github.event.modified }}
+#     - '$FOLDER/**'
+#     - ''data-processors/**''
+
 # jobs:
-#   my-job:
+#   build:
 #     runs-on: ubuntu-latest
 #     steps:
-#       - name: Print github.event object
-#         run: echo "${{ toJson(github.event) }}"
-#       - name: Use triggered folder
-#         run: |
-#           echo "The triggered folder is $TRIGGERED_FOLDER"
-#           echo "The triggered folder is $TRIGGERED_FOLDER1"
-#           echo "$folder"
+#       - name: Checkout code
+#         uses: actions/checkout@v2
 
-name: My Workflow
+#       - name: Check if data was changed
+#         run: |
+#           git show --pretty="" --name-only $GITHUB_EVENT_AFTER
+#       - name: Check if worker was changed
+#         run: |
+#           git diff --name-only ${{ github.event.before }} ${{ github.event.after }}
+
+
+
+
+name: CI
 
 on:
   push:
     paths:
       - 'worker/**'
-      - 'data-processors/**'
+  push:
+    paths:
+      - 'product/**'
 
 jobs:
-  build:
+  build-worker:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - name: Build folder1
+        run: |
+          echo "worker"
 
-      - name: Check if data was changed
+  build-product:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: Build folder2
         run: |
-          git show --pretty="" --name-only $GITHUB_EVENT_AFTER
-      - name: Check if worker was changed
-        run: |
-          git diff --name-only ${{ github.event.before }} ${{ github.event.after }}
+          echo "product"
