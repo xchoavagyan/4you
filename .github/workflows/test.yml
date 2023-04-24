@@ -66,8 +66,8 @@ jobs:
           fetch-depth: 0
       - name: Check if worker was changed
         run: |
-          git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | cut -d "/" -f2 > file.txt
+          git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | cut -d "/" -f1 > file.txt
           cat file.txt 
-          # ls file | while read line | cut -d "/" -f2 | xargs echo
+
 
 
