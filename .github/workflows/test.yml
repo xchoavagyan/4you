@@ -38,4 +38,4 @@ jobs:
 
       - name: Check if worker was changed
         run: |
-          git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
+          git show --pretty="" --name-only
