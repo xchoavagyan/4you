@@ -38,7 +38,7 @@ jobs:
 
       - name: Check if data was changed
         run: |
-          git show --pretty="" --name-only $GITHUB_SHA
+          git show --pretty="" --name-only $GITHUB_EVENT_AFTER
       - name: Check if worker was changed
         run: |
-          git diff --name-only ${{ github.event.after }} ${{ github.event.before }}
+          git diff --name-only ${{ github.event.before }} ${{ github.event.after }}
