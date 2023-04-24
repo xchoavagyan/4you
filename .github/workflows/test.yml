@@ -13,27 +13,10 @@ jobs:
   my-job:
     runs-on: ubuntu-latest
     steps:
-      - name: env print
-        run: |
-          echo "$path"
-          echo $path 
-          echo "////"
-          echo "$path1"
-      - name: Get folder
-        run: | 
-          echo $GITHUB_PATH
-          echo $GITHUB_ENV
-      - name: Dump GitHub context
-        env:
-          GITHUB_CONTEXT: ${{ toJson(github) }}
-        run: echo "$GITHUB_CONTEXT"
-      - name: Dump job context
-        env:
-          JOB_CONTEXT: ${{ toJson(job) }}
-        run: echo "$JOB_CONTEXT"
-      - name: Dump steps context
-        env:
-          STEPS_CONTEXT: ${{ toJson(steps) }}
-        run: echo "$STEPS_CONTEXT"
+      - name: Get folder name
+        id: get_folder_name
+        run: echo "::set-output name=folder_name::${{ github.event.inputs.paths }}"
+      - name: show folder_name
+        run: echo  "${{ steps.get_folder_name.outputs.folder_name }}"
 
         
