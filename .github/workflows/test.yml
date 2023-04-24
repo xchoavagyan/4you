@@ -44,64 +44,32 @@
 # #           git diff --name-only ${{ github.event.before }} ${{ github.event.after }}
 
 
-# name: Workflow example
+name: Workflow example
 
-# env:
-#   FOLDER1: worker
-#   FOLDER2: asdasd
-#   FOLDER3: asdasdasd
-# on:
-
-#   push:
-#     branches:
-#     - main
-#     paths:
-#     - '$FOLDER/**'
-#     - ''data-processors/**''
-
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Checkout code
-#         uses: actions/checkout@v2
-
-#       - name: Check if data was changed
-#         run: |
-#           git show --pretty="" --name-only $GITHUB_EVENT_AFTER
-#       - name: Check if worker was changed
-#         run: |
-#           git diff --name-only ${{ github.event.before }} ${{ github.event.after }}
-
+env:
+  FOLDER1: worker
+  FOLDER2: product
+  FOLDER3: data-processors
 on:
+
   push:
     branches:
-      - 'main'
+    - main
     paths:
-      - 'worker/**'
-      - 'product/**'
+    - 'worker/**'
+    - 'data-processors/**'
+
 jobs:
-  find-out-changes:
+  build:
     runs-on: ubuntu-latest
-    outputs:
-      dirs: ${{ steps.changed-files.dirs }}
     steps:
-      - uses: actions/checkout@v3
-        with:
-          fetch-depth: 2
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v35
-        with:
-          dir_names: true
+      - name: Check if data was changed
+        run: |
+          git show --pretty="" --name-only $GITHUB_SHA
+      - name: Check if worker was changed
+        run: |
+          /usr/bin/git diff --name-only ${{ github.event.before }} ${{ github.event.after }}
 
-  do-stuff:
-    runs-on: ubuntu-latest
-    strategy:
-      matrix: ${{fromJson(needs.find-out-changes.outputs.dirs)}}
-    needs:
-      - find-out-changes
-    steps:
-      - uses: actions/checkout@v3
-      - run: zip ${{ matrix.dir }} etc.
