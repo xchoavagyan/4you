@@ -5,15 +5,16 @@ on:
       - 'worker/**'
       - 'data-processors/**'
       - 'product/**'
-env:
-  TRIGGERED_FOLDER: ${{ github.event.action }}
+# env:
+  # TRIGGERED_FOLDER: ${{ github.event.action }}
   # TRIGGERED_FOLDER1: ${{ github.event.pusher }}
-  folder: ${{ github.event.modified }}
+  # folder: ${{ github.event.modified }}
 jobs:
   my-job:
     runs-on: ubuntu-latest
-
     steps:
+      - name: Print github.event object
+        run: echo "${{ toJson(github.event) }}"
       - name: Use triggered folder
         run: |
           echo "The triggered folder is $TRIGGERED_FOLDER"
