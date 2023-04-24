@@ -38,4 +38,4 @@ jobs:
 
       - name: Check if worker was changed
         run: |
-          git show --pretty="" --name-only
+          git show --pretty="" --name-only ${{ github.sha }}
