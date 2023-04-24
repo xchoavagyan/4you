@@ -38,6 +38,4 @@ jobs:
 
       - name: Check if worker was changed
         run: |
-          # Diff HEAD with the previous commit
-          $diff = git diff --name-only HEAD^ HEAD
-          echo "$diff"
+          git diff-tree --no-commit-id --name-only -r ${{ github.sha }}
