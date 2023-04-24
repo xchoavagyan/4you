@@ -65,21 +65,22 @@ jobs:
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
-      - name: Check if worker was changed
+      - name: Check if folder was changed
         run: |
           git diff --name-only ${{ github.event.before }} ${{ github.event.after }} | cut -d "/" -f1 > file.txt
           cat file.txt
       - name: Search for words
         run: |
-          # if grep -q "worker" file.txt; then echo " --kubeconfig kubeconfig set image deployment/worker"; fi 
-          # if grep -q "data-processors" file.txt; then echo "--kubeconfig kubeconfig set image deployment/data-processors"; fi
-          # if grep -q "product" file.txt; then echo " --kubeconfig kubeconfig set image deployment/product"
-          # else if 
-          #   echo "There is no changes to set new image to deployment"
-          fi
           for variable in "worker" "data-processors" "product"; do
           if grep -q "variable" file.txt; then echo " --kubeconfig kubeconfig set image deployment/variable"; fi
           done
 
 
+
+#           # if grep -q "worker" file.txt; then echo " --kubeconfig kubeconfig set image deployment/worker"; fi 
+#           # if grep -q "data-processors" file.txt; then echo "--kubeconfig kubeconfig set image deployment/data-processors"; fi
+#           # if grep -q "product" file.txt; then echo " --kubeconfig kubeconfig set image deployment/product"
+#           # else if 
+#           #   echo "There is no changes to set new image to deployment"
+#           # fi
 
