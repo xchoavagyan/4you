@@ -1,24 +1,51 @@
+# name: My Workflow
+# on:
+#   push:
+#     paths:
+#       - 'worker/**'
+#       - 'data-processors/**'
+#       - 'product/**'
+# # env:
+#   # TRIGGERED_FOLDER: ${{ github.event.action }}
+#   # TRIGGERED_FOLDER1: ${{ github.event.pusher }}
+#   # folder: ${{ github.event.modified }}
+# jobs:
+#   my-job:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Print github.event object
+#         run: echo "${{ toJson(github.event) }}"
+#       - name: Use triggered folder
+#         run: |
+#           echo "The triggered folder is $TRIGGERED_FOLDER"
+#           echo "The triggered folder is $TRIGGERED_FOLDER1"
+#           echo "$folder"
+
 name: My Workflow
+
 on:
   push:
     paths:
       - 'worker/**'
       - 'data-processors/**'
-      - 'product/**'
-# env:
-  # TRIGGERED_FOLDER: ${{ github.event.action }}
-  # TRIGGERED_FOLDER1: ${{ github.event.pusher }}
-  # folder: ${{ github.event.modified }}
+
 jobs:
-  my-job:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - name: Print github.event object
-        run: echo "${{ toJson(github.event) }}"
-      - name: Use triggered folder
-        run: |
-          echo "The triggered folder is $TRIGGERED_FOLDER"
-          echo "The triggered folder is $TRIGGERED_FOLDER1"
-          echo "$folder"
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-        
+      - name: Check if worker was changed
+        run: |
+          if [[ -n $(git diff HEAD^ HEAD --name-only --diff-filter=ACM -- worker/) ]]; then
+            echo "worker was changed. Running worker..."
+            # Run your command here
+          fi
+
+      - name: Check if processors was changed
+        run: |
+          if [[ -n $(git diff HEAD^ HEAD --name-only --diff-filter=ACM -- data-processors/) ]]; then
+            echo "data-processors was changed. Running data-processors..."
+            # Run your command here
+          fi
