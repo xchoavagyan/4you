@@ -73,32 +73,42 @@
 #         run: |
 #           git diff --name-only ${{ github.event.before }} ${{ github.event.after }}
 
-
-
-
-name: CI
+name: My Workflow
 
 on:
   push:
-    paths:
-      - 'worker/**'
-  push:
-    paths:
-      - 'product/**'
+    branches:
+      - main
 
 jobs:
-  build-worker:
+  my-job:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Build folder1
+      - name: Check for Changes
         run: |
-          echo "worker"
-
-  build-product:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Build folder2
+          if [ -z "${{ github.event.paths }}" ]; then
+            echo "No files were changed in this push event."
+            exit 0
+          else
+            echo "Files were changed in this push event:"
+            echo "${{ github.event.paths }}"
+          fi
+      - name: Identify Changed Folder
         run: |
-          echo "product"
+          # Loop through each path in the list of modified paths
+          for path in "${{ github.event.paths }}"; do
+            # Check if the path starts with "worker/"
+            if [[ $path == "worker/"* ]]; then
+              echo "worker was changed"
+              echo "$path"
+              break
+            fi
+            # Check if the path starts with "product/"
+            if [[ $path == "product/"* ]]; then
+              echo "product was changed"
+              echo "$path"
+              break
+            fi
+            # Add additional checks for other folders as needed
+          done
