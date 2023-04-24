@@ -36,6 +36,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Check if worker was changed
+      - name: Check if data was changed
         run: |
           git show --pretty="" --name-only $GITHUB_SHA
+      - name: Check if worker was changed
+        run: |
+          git diff --name-only ${{ github.event.after }} ${{ github.event.before }}
