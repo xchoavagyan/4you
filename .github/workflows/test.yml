@@ -72,7 +72,7 @@ jobs:
       - name: Search for words
         run: |
           for variable in "worker" "data-processors" "product"; do
-          if grep -q "variable" file.txt; then echo " --kubeconfig kubeconfig set image deployment/variable"; fi
+          if grep -q "$variable" file.txt; then echo " --kubeconfig kubeconfig set image deployment/$variable"; fi
           done
 
 
