@@ -70,9 +70,9 @@ jobs:
           cat file.txt
       - name: Search for words
         run: |
-          if grep -q "worker" file.txt; then echo " --kubeconfig kubeconfig set image deployment/worker" 
-          elif grep -q "data-processors" file.txt; then echo "--kubeconfig kubeconfig set image deployment/data-processors"
-          elif grep -q "product" file.txt; then echo " --kubeconfig kubeconfig set image deployment/product"
+          if grep -q "worker" file.txt; then echo " --kubeconfig kubeconfig set image deployment/worker" fi 
+          if grep -q "data-processors" file.txt; then echo "--kubeconfig kubeconfig set image deployment/data-processors" fi
+          if grep -q "product" file.txt; then echo " --kubeconfig kubeconfig set image deployment/product" fi
           else
             echo "There is no changes to set new image to deployment"
           fi
