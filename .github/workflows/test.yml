@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       TRIGGERED_FOLDER: ${{ github.push.inputs.paths }}
-      TRIGGERED_FOLDER1: ${{ on.push.inputs.paths }}
+      TRIGGERED_FOLDER1: ${{ github.on.push.inputs.paths }}
     steps:
       - name: Use triggered folder
         run: |
