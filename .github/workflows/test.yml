@@ -46,10 +46,6 @@
 
 name: Workflow example
 
-env:
-  FOLDER1: worker
-  FOLDER2: product
-  FOLDER3: data-processors
 on:
 
   push:
@@ -58,6 +54,7 @@ on:
     paths:
     - 'worker/**'
     - 'data-processors/**'
+    - 'product/**'
 
 jobs:
   build:
