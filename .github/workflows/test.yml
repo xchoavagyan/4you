@@ -38,14 +38,6 @@ jobs:
 
       - name: Check if worker was changed
         run: |
-          if [[ -n $(find worker/ -type f -newer $(git rev-parse HEAD)) ]]; then
-            echo "Files in worker were changed. Running command1..."
-            # Run your command here
-          fi
-
-      - name: Check if data-processors was changed
-        run: |
-          if [[ -n $(find data-processors/ -type f -newer $(git rev-parse HEAD)) ]]; then
-            echo "Files in data-processors were changed. Running command2..."
-            # Run your command here
-          fi
+          # Diff HEAD with the previous commit
+          $diff = git diff --name-only HEAD^ HEAD
+          echo "$diff"
