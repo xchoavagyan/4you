@@ -7,7 +7,7 @@ on:
       - 'product/**'
 env:
   TRIGGERED_FOLDER: ${{ github.push.inputs.paths }}
-  TRIGGERED_FOLDER1: ${{ github.on.push.inputs.paths }}
+  TRIGGERED_FOLDER1: ${{ github.event.ref }}
 jobs:
   my-job:
     runs-on: ubuntu-latest
