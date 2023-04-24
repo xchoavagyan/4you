@@ -70,28 +70,12 @@ jobs:
           cat file.txt
       - name: Search for words
         run: |
-          if grep -q "worker" file.txt; then
-            echo "::set-output name=word::worker"
-          elif grep -q "data-processors" file.txt; then
-            echo "::set-output name=word::data-processors"
-          elif grep -q "product" file.txt; then
-            echo "::set-output name=word::product"
+          if grep -q "worker" file.txt; then echo " --kubeconfig kubeconfig set image deployment/worker" 
+          elif grep -q "data-processors" file.txt; then echo "--kubeconfig kubeconfig set image deployment/data-processors"
+          elif grep -q "product" file.txt; then echo " --kubeconfig kubeconfig set image deployment/product"
           else
-            echo "::set-output name=word::none"
+            echo "There is no changes to set new image to deployment"
           fi
-        id: search
-      - name: Step 1
-        if: steps.search.outputs.word == 'worker'
-        run: echo "worker is present"
-      - name: Step 2
-        if: steps.search.outputs.word == 'data-processors'
-        run: echo "data-processors is present"
-      - name: Step 3
-        if: steps.search.outputs.word == 'product'
-        run: echo "Product is present"
-      - name: Step 4
-        if: steps.search.outputs.word == 'none'
-        run: echo "No word is present"
 
 
 
