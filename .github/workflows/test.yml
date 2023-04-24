@@ -63,21 +63,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
         with:
-          fetch-depth: 2
-
-      - name: Check if data was changed
-        run: |
-          git show --pretty="" --name-only $GITHUB_SHA
+          fetch-depth: 0
       - name: Check if worker was changed
         run: |
-          /usr/bin/git diff --name-only ${{ github.event.before }} ${{ github.event.after }}
-      - name: Check for Changes
-        run: |
-          if [ -z "${{ github.event.paths }}" ]; then
-            echo "No files were changed in this push event."
-            exit 0
-          else
-            echo "Files were changed in this push event:"
-            echo "${{ github.event.paths }}"
-          fi
+          git diff --name-only ${{ github.event.before }} ${{ github.event.after }} > file.txt
+          cat file.txt 
+
 
