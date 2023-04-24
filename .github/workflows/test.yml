@@ -5,18 +5,17 @@ on:
       - 'worker/**'
       - 'data-processors/**'
       - 'product/**'
-env:
-  path: ${{ github.action_path }}
-  path1: $github.action_path
+# env:
+#   path: ${{ github.action_path }}
+#   path1: $github.action_path
 
 jobs:
   my-job:
     runs-on: ubuntu-latest
+    env:
+      TRIGGERED_FOLDER: ${{ github.event.inputs.paths }}
     steps:
-      - name: Get folder name
-        id: get_folder_name
-        run: echo "::set-output name=folder_name::${{ github.event.inputs.paths }}"
-      - name: show folder_name
-        run: echo  "${{ steps.get_folder_name.outputs.folder_name }}"
+      - name: Use triggered folder
+        run: echo "The triggered folder is $TRIGGERED_FOLDER"
 
         
