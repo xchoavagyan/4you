@@ -72,7 +72,7 @@ jobs:
         run: |
           if grep -q "worker" file.txt; then echo " --kubeconfig kubeconfig set image deployment/worker" fi 
           if grep -q "data-processors" file.txt; then echo "--kubeconfig kubeconfig set image deployment/data-processors" fi
-          if grep -q "product" file.txt; then echo " --kubeconfig kubeconfig set image deployment/product" fi
+          if grep -q "product" file.txt; then echo " --kubeconfig kubeconfig set image deployment/product"
           else
             echo "There is no changes to set new image to deployment"
           fi
