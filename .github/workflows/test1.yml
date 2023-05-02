@@ -17,7 +17,6 @@ jobs:
             echo $REPOSITORY_VAR
             echo "----------"
             echo ${{ vars.AWS_ID}}
-            
 
     build-deploy-staging:
       name: Build Deploy staging
