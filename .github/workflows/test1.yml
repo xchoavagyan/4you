@@ -1,0 +1,36 @@
+name: My Workflow
+on:
+  push:
+jobs: 
+    build-deploy-prod:
+      name: Build Deploy Production
+      runs-on: ubuntu-latest
+      environment:
+        name: production
+      steps:
+        - name: test env
+          env: 
+            REPOSITORY_VAR: ${{ vars.AWS_ID}}
+          run: |
+            cat $GITHUB_ENV
+            echo "----------"
+            echo $REPOSITORY_VAR
+            echo "----------"
+            echo ${{ env.AWS_ID }}
+            
+
+    build-deploy-staging:
+      name: Build Deploy staging
+      runs-on: ubuntu-latest
+      environment:
+        name: staging
+      steps:
+        - name: test env
+          env: 
+            REPOSITORY_VAR: ${{ vars.AWS_ID}}
+          run: |
+            cat $GITHUB_ENV
+            echo "----------"
+            echo $REPOSITORY_VAR
+            echo "----------"
+            echo ${{ env.AWS_ID }}
