@@ -16,7 +16,7 @@ jobs:
             echo "----------"
             echo $REPOSITORY_VAR
             echo "----------"
-            echo ${{ env.AWS_ID }}
+            echo ${{ vars.AWS_ID}}
             
 
     build-deploy-staging:
@@ -33,4 +33,4 @@ jobs:
             echo "----------"
             echo $REPOSITORY_VAR
             echo "----------"
-            echo ${{ env.AWS_ID }}
+            echo ${{ vars.AWS_ID}}
