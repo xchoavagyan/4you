@@ -1,8 +1,6 @@
 name: Java CI with Maven
 
-on:
-  push:
-
+on: push
 jobs:
   build-deploy-run:
     runs-on: ubuntu-22.04
