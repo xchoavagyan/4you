@@ -6,8 +6,6 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v3
-      # - name: Cat known Hosts
-      #   run: cat $HOME/.ssh/known_hosts
       - name: Test ssh server
         uses: appleboy/ssh-action@master
         with:
@@ -16,8 +14,4 @@ jobs:
           password: ${{ secrets.REMOTE_KEY }}
           port: ${{ secrets.REMOTE_PORT }}
           script: |
-            ssh-keyscan -H ${{ secrets.REMOTE_IP }} >> $HOME/.ssh/known_hosts
-            # sshpass -p ${{ secrets.REMOTE_KEY }} ssh -o StrictHostKeyChecking=no your-username@your-remote-host "echo Hello, world!"
-      - name: Cat known Hosts
-        run: cat $HOME/.ssh/known_hosts
-
+              pwd
